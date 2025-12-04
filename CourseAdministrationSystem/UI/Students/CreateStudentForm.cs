@@ -1,4 +1,4 @@
-﻿using CourseAdministrationSystem.DB_Helpers;
+﻿using CourseAdministrationSystem.Repositories.Student;
 using CourseAdministrationSystem.UI_Helpers;
 using Microsoft.Data.SqlClient;
 using System;
@@ -30,8 +30,11 @@ namespace CourseAdministrationSystem.Students
         {
             try
             {
-                string newName = textBox1.Text;
-                DBFunctions_Core.Create(DBFunctions_Core.TableName.Student, "Name", newName);
+                string firstName = textBox1.Text;
+                string lastName = textBox2.Text;
+                string email = textBox3.Text;
+                
+                CreateStudentRepository.CreateStudent(firstName, lastName, email);
             }
             catch (SqlException ex)
             {
@@ -47,22 +50,28 @@ namespace CourseAdministrationSystem.Students
         // Get all data from table and put in listBox1
         private void button2_Click(object sender, EventArgs e)
         {
-            List<string> students = DBFunctions_Core.GetAll(DBFunctions_Core.TableName.Student);
+            
+            List<Models.Student> students = GetAllStudentsRepository.GetAllStudents();
             if (listBox1.Items.Count != 0)
             {
                 listBox1.Items.Clear();
             }
             else
             {
-                foreach (string student in students)
+                foreach (Models.Student student in students)
                 {
-                    listBox1.Items.Add(student);
+                    listBox1.Items.Add(student.ToString());
                 }
             }
 
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

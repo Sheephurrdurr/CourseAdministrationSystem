@@ -31,7 +31,7 @@ namespace CourseAdministrationSystem.DB_Helpers
             using (SqlCommand command = new SqlCommand(query, connection))
             using (SqlDataReader reader = command.ExecuteReader())
             {
-                List<string> lines = new List<string>();
+                List<string> lines = new List<string>(); // Mayhaps change this to a list of objects
                 while (reader.Read())
                 {
                     int id = Convert.ToInt32(reader["ID"]);
